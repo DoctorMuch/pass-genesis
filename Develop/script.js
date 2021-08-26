@@ -13,26 +13,27 @@ function generatePassword(){
     let lowerChar = confirm("Would you like your password to include lowercase letters?");
     if (lowerChar) {
       pool = pool.concat(lowerOptions);
-      console.log('aaa');
     }
     let upperChar = confirm("Would you like your password to include uppercase letters?");
     if (upperChar){
       pool = pool.concat(upperOptions);
-      console.log('bbb');
     }
     let numChar = confirm("Would you like your password to include numeric characters?");
     if (numChar) {
       pool = pool.concat(numOptions);
-      console.log('ccc');
     }
     let specialChar = confirm("Would you like your password to include special characters?");
     if (specialChar) {
       pool = pool.concat(spcOptions);
-      console.log('ddd');
     }
     console.log(pool);
+    console.log(pool.length);
+    console.log(Math.floor(Math.random()* pool.length));
     for (let i=0; i < passLength.length; i++){
-      // let 
+      let tmpPass = " ";
+      tmpPass = tmpPass + Math.floor(Math.random()* pool.length);
+      console.log(tmpPass);
+      return tmpPass;
     }
     
     console.log("Voila! Here is your new password!");
