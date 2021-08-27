@@ -40,8 +40,8 @@ function generatePassword(){
     } 
     
     while (validatePass){
-      let tmpPass = " ";
-      for (let i=0; i < passLength; i++){
+      let tmpPass = "6$";
+      for (let i=0; i < passLength-2; i++){
         let n =  Math.floor(Math.random()*pool.length);
         tmpPass += pool[n];
       }
