@@ -4,11 +4,11 @@ var generateBtn = document.querySelector("#generate");
 // Write password to the #password input
 function generatePassword(){
   // Setting up available characters in arrays
-  let lowerOptions = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-    let upperOptions = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-    let numOptions = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-    let spcOptions = ['!', '@', '#', '$', '%', '&', '*', '?', '+', '-', '^'];
-    let pool = [];
+    var lowerOptions = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+    var upperOptions = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+    var numOptions = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    var spcOptions = ['!', '@', '#', '$', '%', '&', '*', '?', '+', '-', '^'];
+    var pool = [];
 // Prompt password length and validate entry.
     let passLength = prompt("How long would you like your password to be? Enter a number between 8 and 128:")
     passLength = Number(passLength);
@@ -21,35 +21,51 @@ function generatePassword(){
       return generatePassword();
     }
     // Prompt user for which sets of characters they would like to include
-    let lowerChar = confirm("Would you like your password to include lowercase letters?");
+    var lowerChar = confirm("Would you like your password to include lowercase letters?");
+    var upperChar = confirm("Would you like your password to include uppercase letters?");
+    var numChar = confirm("Would you like your password to include numeric characters?");
+    var specialChar = confirm("Would you like your password to include special characters?");
+    
     if (lowerChar) {
       pool = pool.concat(lowerOptions);
     }
-    let upperChar = confirm("Would you like your password to include uppercase letters?");
     if (upperChar){
       pool = pool.concat(upperOptions);
     }
-    let numChar = confirm("Would you like your password to include numeric characters?");
     if (numChar) {
       pool = pool.concat(numOptions);
     }
-    let specialChar = confirm("Would you like your password to include special characters?");
     if (specialChar) {
       pool = pool.concat(spcOptions);
-    }
-
-    console.log(Math.floor(Math.random()* pool.length));
-    let tmpPass = " ";
-    for (let i=0; i < passLength; i++){
-      let n = Math.floor(Math.random()*pool.length);
-      tmpPass += pool[n];
-    }
+    } 
+    
+    while (validatePass){
+      let tmpPass = " ";
+      for (let i=0; i < passLength; i++){
+        let n =  Math.floor(Math.random()*pool.length);
+        tmpPass += pool[n];
+      }
+      return tmpPass;
+    }  
+    
     console.log("Voila! Here is your new password!");
-    return tmpPass;
-    
-    
-    
-  
+
+};
+
+let validatePass = function(){
+  if (lowerChar) {
+    tmpPass.includes(lowerOptions);
+  }
+  if (upperChar){
+    tmpPass.includes(upperOptions);
+  }
+  if (numChar){
+    tmpPass.includes(numOptions);
+  }
+  if (specialChar){
+    tmpPass.includes(spcOptions);
+  }
+  return true;
 };
 
 function writePassword() {
