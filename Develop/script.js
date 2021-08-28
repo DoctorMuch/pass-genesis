@@ -10,7 +10,7 @@ function generatePassword(){
     var numOptions = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
     var spcOptions = ['!', '@', '#', '$', '%', '&', '*', '?', '+', '-', '^', '!', '@', '#', '$', '%', '&', '*', '?', '+', '-', '^'];
     var pool = [];
-    var spcPool = [];
+  
 // Prompt password length and validate entry.
     let passLength = prompt("How long would you like your password to be? Enter a number between 8 and 128:")
     passLength = Number(passLength);
@@ -27,35 +27,35 @@ function generatePassword(){
     var upperChar = confirm("Would you like your password to include uppercase letters?");
     var numChar = confirm("Would you like your password to include numeric characters?");
     var specialChar = confirm("Would you like your password to include special characters?");
-
-    if (lowerChar) {
-      pool = pool.concat(lowerOptions);
-    }
-    if (upperChar){
-      pool = pool.concat(upperOptions);
-    }
-    if (numChar) {
-      pool = pool.concat(numOptions);
-    }
-    if (specialChar) {
-      pool = pool.concat(spcOptions);
+    // Need to account for possibility of user not choosing any character types.
+    
+    if (lowerChar || upperChar || numChar || specialChar) {
+      if (lowerChar) {
+        pool = pool.concat(lowerOptions);
+      }
+      if (upperChar){
+        pool = pool.concat(upperOptions);
+      }
+      if (numChar) {
+        pool = pool.concat(numOptions);
+      }
+      if (specialChar) {
+        pool = pool.concat(spcOptions);
+      }
+    } else {
+      alert("You must choose at least one type of character for your password! Please try again.")
+      return generatePassword();
     }
     
-    while (validatePass){
-      let tmpPass = " ";
+      while (validatePass){
+        let tmpPass = " ";
         for (let i=0; i < passLength; i++) {
           let n = Math.floor(Math.random()*pool.length);
           tmpPass +=pool[n];
-          if(tmpPass === null || tmpPass ===" "){
-            alert("You must select at least one type of character to include in your password! Please try again.");
-            return generatePassword();
-          }
         }
-      return tmpPass;
-    }  
-    
+        return tmpPass;
+      }  
     console.log("Voila! Here is your new password!");
-
 };
 
 let validatePass = function(){
