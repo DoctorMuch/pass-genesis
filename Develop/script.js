@@ -53,19 +53,24 @@ function generatePassword(){
 };
 
 let validatePass = function(){
-  if (lowerChar) {
-    tmpPass.includes(lowerOptions);
+  if (lowerChar === false) {
+    !tmpPass.includes(lowerOptions);
   }
-  if (upperChar){
-    tmpPass.includes(upperOptions);
-  }
-  if (numChar){
-    tmpPass.includes(numOptions);
-  }
-  if (specialChar){
-    tmpPass.includes(spcOptions);
-  }
-  return true;
+  return false;
+
+  // if (lowerChar) {
+  //   tmpPass.includes(lowerOptions);
+  // }
+  // if (upperChar){
+  //   tmpPass.includes(upperOptions);
+  // }
+  // if (numChar){
+  //   tmpPass.includes(numOptions);
+  // }
+  // if (specialChar){
+  //   tmpPass.includes(spcOptions);
+  // }
+  // return true;
 };
 
 function writePassword() {
