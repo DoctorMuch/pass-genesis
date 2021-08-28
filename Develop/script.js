@@ -6,9 +6,11 @@ function generatePassword(){
   // Setting up available characters in arrays
     var lowerOptions = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
     var upperOptions = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-    var numOptions = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-    var spcOptions = ['!', '@', '#', '$', '%', '&', '*', '?', '+', '-', '^'];
+    // Doubled the number of entries (by repeating each string) to ensure that I would get number and special characters included in passwords.
+    var numOptions = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    var spcOptions = ['!', '@', '#', '$', '%', '&', '*', '?', '+', '-', '^', '!', '@', '#', '$', '%', '&', '*', '?', '+', '-', '^'];
     var pool = [];
+    var spcPool = [];
 // Prompt password length and validate entry.
     let passLength = prompt("How long would you like your password to be? Enter a number between 8 and 128:")
     passLength = Number(passLength);
@@ -25,7 +27,7 @@ function generatePassword(){
     var upperChar = confirm("Would you like your password to include uppercase letters?");
     var numChar = confirm("Would you like your password to include numeric characters?");
     var specialChar = confirm("Would you like your password to include special characters?");
-    
+
     if (lowerChar) {
       pool = pool.concat(lowerOptions);
     }
@@ -37,14 +39,18 @@ function generatePassword(){
     }
     if (specialChar) {
       pool = pool.concat(spcOptions);
-    } 
+    }
     
     while (validatePass){
-      let tmpPass = "6$";
-      for (let i=0; i < passLength-2; i++){
-        let n =  Math.floor(Math.random()*pool.length);
-        tmpPass += pool[n];
-      }
+      let tmpPass = " ";
+        for (let i=0; i < passLength; i++) {
+          let n = Math.floor(Math.random()*pool.length);
+          tmpPass +=pool[n];
+          if(tmpPass === null || tmpPass ===" "){
+            alert("You must select at least one type of character to include in your password! Please try again.");
+            return generatePassword();
+          }
+        }
       return tmpPass;
     }  
     
@@ -53,24 +59,19 @@ function generatePassword(){
 };
 
 let validatePass = function(){
-  if (lowerChar === false) {
-    !tmpPass.includes(lowerOptions);
+  if (lowerChar) {
+    tmpPass.includes(lowerOptions);
   }
-  return false;
-
-  // if (lowerChar) {
-  //   tmpPass.includes(lowerOptions);
-  // }
-  // if (upperChar){
-  //   tmpPass.includes(upperOptions);
-  // }
-  // if (numChar){
-  //   tmpPass.includes(numOptions);
-  // }
-  // if (specialChar){
-  //   tmpPass.includes(spcOptions);
-  // }
-  // return true;
+  if (upperChar){
+    tmpPass.includes(upperOptions);
+  }
+  if (numChar){
+    tmpPass.includes(numOptions);
+  }
+  if (specialChar){
+    tmpPass.includes(spcOptions);
+  }
+  return true;
 };
 
 function writePassword() {
